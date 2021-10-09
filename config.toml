@@ -1,0 +1,20 @@
+[server]
+host = '0.0.0.0'
+port = 8080
+CSRF_ENABLED = true
+SECRET_KEY = '2vm04vn402nfkghbj4vp2n6tnv0'
+
+[database]
+host = ''
+port = 5432
+user = 'postgres'
+password = ''
+dbname = 'suai'
+
+[s3]
+bucket = ''
+
+[student]
+name = ''
+group = ''
+number = ''

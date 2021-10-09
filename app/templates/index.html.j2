@@ -1,0 +1,94 @@
+{% extends "base.html.j2" %}
+
+{% block content %}
+<div>
+    <h1>Database check</h1>
+
+    <h3>Database status:</h3>
+    {% if db_connection %}
+    <div class="alert alert-success d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+        <div>
+            {{ db_connection.host }}:{{ db_connection.port }}
+        </div>
+    </div>
+    {% else %}
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+        <div>
+            Could not connect to database server: Connection refused
+        </div>
+    </div>
+    {% endif %}
+
+    <form method="post" action="" novalidate>
+        {{ form.hidden_tag() }}
+        <div class="container">
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-4">
+                    {{ form.name.label(class_="form-label") }}
+                </div>
+                <div class="col-4">
+                    {{ form.group.label(class_="form-label") }}
+                </div>
+                <div class="col-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-2 text-center">Add student:</div>
+                <div class="col-4">
+                    {% if form.name.errors %}
+                        {{ form.name(class_="form-control is-invalid", required=True) }}
+                        {% for error in form.name.errors %}
+                        <div id="nameFeedback" class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.name(class_="form-control", required=True) }}
+                        <div id="nameFeedback" class="invalid-feedback">
+                            Please enter student name.
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-4">
+                    {% if form.group.errors %}
+                        {{ form.group(class_="form-control is-invalid", required=True) }}
+                        {% for error in form.group.errors %}
+                        <div id="groupFeedback" class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                    {% else %}
+                        {{ form.group(class_="form-control", required=True) }}
+                        <div id="groupFeedback" class="invalid-feedback">
+                            Please enter student group.
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-2">
+                    <div class="d-grid gap-2">
+                        {{ form.submit(class_="btn btn-primary") }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <h3>Database data check:</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Group</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if students %}
+            {% for student in students %}
+            <tr>
+                <td>{{ student['name'] }}</td>
+                <td>{{ student['groups'] }}</td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
