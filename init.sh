@@ -8,7 +8,7 @@ sudo apt install libpq-dev -y
 
 sudo mkdir /suai
 cd /suai/
-git clone https://github.com/1k1ru/suaicloudapp.git
+sudo git clone https://github.com/1k1ru/suaicloudapp.git
 cd suaicloudapp/
 sudo aws s3 sync s3://${bucket}/ .
 pip3 install -r requirements.txt
