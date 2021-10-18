@@ -26,14 +26,16 @@ def index():
 
     try:
         students = db.get_students()
+        db_info = db.check_connection().info
     except:
-        students=None
+        students = None
+        db_info = None
 
     return render_template(
         'index.html.j2',
         title='Home',
         form=form,
-        db_connection = db.check_connection().info,
+        db_connection = db_info,
         students=students
     )
 
@@ -65,12 +67,17 @@ def health():
                 except Exception as e:
                     flash(e)
 
+    try:
+        db_info = db.check_connection().info
+    except:
+        db_info = None
+
     return render_template(
         'health.html.j2',
         title = 'Health check',
         student = config.cfg['student'],
         hostname = aws.get_instance_hostname(),
-        db_connection = db.check_connection().info,
+        db_connection = db_info,
         s3_connection = aws.check_s3_access()
     )
 
