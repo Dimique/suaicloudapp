@@ -98,15 +98,26 @@ S3 bucket должен быть приватным и содержать в се
 
 Для получения доступа к веб-интерфейсу приложения необходимо открыть порт, указанный в [файле конфигурации](config.toml).
 
-После запуска инстанса и подключения к нему по `SSH`, можно выполнить shell-скрипт [init.sh](init.sh) с предварительно заданной переменной `bucket`, содержащей название созданного ранее S3 bucket.  
-Переменную `bucket` можно задать так:
+После запуска инстанса и подключения к нему по `SSH`, необходимо выполнить следующие команды для обновления пакетов инстанса и установки приложения:
 
 ```bash
-bucket=suaicloudbucket
-```
-где вместо `suaicloudbucket` будет название Вашего S3 bucket.
+sudo apt update -y
+sudo apt upgrade -y
+sudo apt install awscli -y
+sudo apt install python3-pip -y
+sudo apt install postgresql-client -y
+sudo apt install libpq-dev -y
 
-Однако, выполнение [init.sh](init.sh) рассчитано на полное развертывание приложения. Для удобства отладки лучше выполнять каждую команду скрипта отдельно.
+sudo mkdir /suai
+cd /suai/
+sudo git clone https://github.com/1k1ru/suaicloudapp.git
+cd suaicloudapp/
+```
+После выполнения данных команд необходимо отредактировать [файл конфигурации config.toml](config.toml) в соответствии с примером конфигурации описаном выше.
+
+```bash
+sudo nano config.toml
+```
 
 [run.py](run.py) - точка входа приложения. Запуск приложения можно осуществить командой:
 
