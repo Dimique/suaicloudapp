@@ -113,7 +113,7 @@ cd /suai/
 sudo git clone https://github.com/1k1ru/suaicloudapp.git
 cd suaicloudapp/
 ```
-После выполнения данных команд необходимо отредактировать [файл конфигурации config.toml](config.toml) в соответствии с примером конфигурации описаном выше.
+После выполнения данных команд необходимо отредактировать [файл конфигурации config.toml](config.toml) в соответствии с примером конфигурации, описанным выше.
 
 ```bash
 sudo nano config.toml
